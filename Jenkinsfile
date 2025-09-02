@@ -17,18 +17,17 @@ node ('app'){
         			}
          }
  
+
     stage('Deploy to VM') {
-      steps {
         sshagent(['ssh-key-credential-id']) {
-          sh """
-            ssh -o StrictHostKeyChecking=no appserver@192.168.58.14 '
-              docker-compose pull piseth168/snake:latest &&
-              docker-compose down &&
-              docker-compose up -d
-              '
-              """
+            sh """
+                ssh -o StrictHostKeyChecking=no appserver@192.168.58.14 '
+                    docker-compose pull piseth168/snake:latest &&
+                    docker-compose down &&
+                    docker-compose up -d
+                '
+            """
         }
-      }
     }
  
 }
