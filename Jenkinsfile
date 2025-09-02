@@ -16,11 +16,17 @@ node ('app'){
             app.push("latest")
         			}
          }
-
-    stage('Pull-image-server') {
-
-         sh "docker-compose down"
-         sh "docker-compose up -d"	
-      }
+    
+    stage('Deploy to VM') {
+        withEnv(["SSH_KEY=/home/appserver/.ssh/id_rsa"]) {
+            sh """
+                ssh -i $SSH_KEY -o StrictHostKeyChecking=no appserver@192.168.58.14 '
+                    cd docker-node-multiplayer-snake &&
+                    docker-compose down &&
+                    docker-compose up -d
+                '
+            """
+        }
+    }
 
 }
