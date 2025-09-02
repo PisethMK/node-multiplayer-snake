@@ -16,13 +16,7 @@ node ('app'){
             app.push("latest")
         			}
          }
-  
-    
-    stage('Pull-image-server') {
-    
-         sh "docker-compose down"
-         sh "docker-compose up -d"	
-      }
+ 
     stage('Deploy to VM') {
       steps {
         sshagent(['ssh-key-credential-id']) {
