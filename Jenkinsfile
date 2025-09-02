@@ -19,7 +19,7 @@ node ('app'){
  
 
     stage('Deploy to VM') {
-        withEnv(["SSH_KEY=${JENKINS_HOME}/.ssh/id_rsa"]) {
+        withEnv(["SSH_KEY=/home/appserver/.ssh/id_rsa"]) {
             sh """
                 ssh -i $SSH_KEY -o StrictHostKeyChecking=no appserver@192.168.58.14 '
                     docker-compose pull piseth168/snake:latest &&
