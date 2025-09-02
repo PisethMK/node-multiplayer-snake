@@ -22,7 +22,7 @@ node ('app'){
         withEnv(["SSH_KEY=/home/appserver/.ssh/id_rsa"]) {
             sh """
                 ssh -i $SSH_KEY -o StrictHostKeyChecking=no appserver@192.168.58.14 '
-                    docker-compose pull piseth168/snake:latest &&
+                    cd docker-node-multiplayer-snake &&
                     docker-compose down &&
                     docker-compose up -d
                 '
