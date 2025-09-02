@@ -23,6 +23,19 @@ node ('app'){
          sh "docker-compose down"
          sh "docker-compose up -d"	
       }
+    stage('Deploy to VM') {
+      steps {
+        sshagent(['ssh-key-credential-id']) {
+          sh """
+            ssh -o StrictHostKeyChecking=no appserver@192.168.58.14 '
+              docker-compose pull piseth168/snake:latest &&
+              docker-compose down &&
+              docker-compose up -d
+              '
+              """
+        }
+      }
+    }
  
 }
 
